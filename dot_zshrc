@@ -1,0 +1,60 @@
+
+# Created by newuser for 5.9
+eval "$(starship init zsh)"
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -e "/usr/lib64/kitty/shell-integration/zsh/kitty.zsh"; then
+    source "/usr/lib64/kitty/shell-integration/zsh/kitty.zsh"
+fi
+# END_KITTY_SHELL_INTEGRATION
+
+
+# default shell
+export SHELL=/usr/bin/zsh
+
+
+# Enable command history
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+
+
+# Prevent duplicate entries in history
+setopt HIST_IGNORE_DUPS  # Ignore duplicate commands
+setopt HIST_FIND_NO_DUPS  # Do not display duplicates when searching history
+
+
+#important functionality
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+
+# rmtrash alisas
+alias rm='rmtrash'
+alias rmdir='rmdirtrash'
+
+
+# autojump cli
+source /usr/share/autojump/autojump.bash
+
+
+# the fuck cli,  correct the previous command
+eval $(thefuck --alias)
+alias f='fuck'
+
+
+# key binding or mapping
+bindkey '^H' backward-kill-word
+
+
+
+# chezmoi- git init connfig files
+export PATH="$HOME/.local/bin:$PATH"
+alias cm='chezmoi'
+
+
+
+# ranger
+alias rg='ranger'
