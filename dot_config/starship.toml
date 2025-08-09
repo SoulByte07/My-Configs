@@ -23,7 +23,8 @@ $rust\
 $docker_context\
 [](fg:#06969A bg:#33658A)\
 $time\
-[ ](fg:#33658A)\
+$cmd_duration\
+$character\
 """
 command_timeout = 5000
 # Disable the blank line at the start of the prompt
@@ -137,3 +138,11 @@ disabled = true
 time_format = "%R" # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ $time ]($style)'
+
+[cmd_duration]
+style = "bg:#33658A"
+format = '[  $duration ]($style)'
+
+[character]
+success_symbol = "[](fg:#33658A)"
+error_symbol = "[](fg:#FF2C2C bg:error)"
