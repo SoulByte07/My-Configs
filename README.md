@@ -1,6 +1,3 @@
-# ScreenShot
-![Uploading Screenshot From 2025-08-11 21-14-55.png…]()
-
 # My Chezmoi Configs
 
 Welcome to my repo where i share and backup my **Linux configs**, which takes a lot of time to learn and config
