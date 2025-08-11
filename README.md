@@ -1,3 +1,7 @@
+# ScreenShots
+![Screenshot](screenshots/terminal.png)
+
+
 # My Chezmoi Configs
 
 Welcome to my repo where i share and backup my **Linux configs**, which takes a lot of time to learn and config
