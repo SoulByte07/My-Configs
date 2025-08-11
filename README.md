@@ -1,4 +1,5 @@
 # ScreenShot
+![Uploading Screenshot From 2025-08-11 21-14-55.png…]()
 
 # My Chezmoi Configs
 
