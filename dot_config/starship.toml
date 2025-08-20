@@ -43,7 +43,7 @@ Fedora = " "
 show_always = true
 style_user = "bg:#3B4252"
 style_root = "bg:#3B4252"
-format = '[$user ]($style)'
+format = '[ Soul ]($style)'
 
 [directory]
 style = "bg:#434C5E"

@@ -14,6 +14,32 @@ fi
 export SHELL=/usr/bin/zsh
 
 
+# default text editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+
+# Alias
+
+# mount proton_drive via rclone
+alias mount_proton='rclone mount proton_drive: ~/Proton_Drive --config=/home/soul/.config/rclone/rclone.conf --vfs-cache-mode writes --vfs-cache-max-age 1h --vfs-cache-poll-interval 1m --no-modtime --no-checksum --cache-dir=/var/rclone'
+
+# rmtrash alisas
+alias rm='rmtrash'
+alias rmdir='rmdirtrash'
+
+alias f='fuck'
+
+alias cm='chezmoi'
+
+# ranger
+alias rg='ranger'
+
+# copy content to clipboard
+alias copyfile='xclip -selection clipboard <'
+
+
+
 # Enable command history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -31,19 +57,12 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 
-# rmtrash alisas
-alias rm='rmtrash'
-alias rmdir='rmdirtrash'
-
-
 # autojump cli
 source /usr/share/autojump/autojump.bash
 
 
 # the fuck cli,  correct the previous command
 eval $(thefuck --alias)
-alias f='fuck'
-
 
 # key binding or mapping
 bindkey '^H' backward-kill-word
@@ -52,9 +71,3 @@ bindkey '^H' backward-kill-word
 
 # chezmoi- git init connfig files
 export PATH="$HOME/.local/bin:$PATH"
-alias cm='chezmoi'
-
-
-
-# ranger
-alias rg='ranger'
