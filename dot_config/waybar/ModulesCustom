@@ -281,9 +281,16 @@
   "format": "{}",
   "tooltip": false,
   "escape": false
-}
-}
+},
 
+"custom/timer": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 60,
+    "exec": "~/.config/hypr/scripts/timer.sh",
+    "on-click-right": "~/.config/hypr/scripts/timer_menu.sh"
+}
+}
 
 
 

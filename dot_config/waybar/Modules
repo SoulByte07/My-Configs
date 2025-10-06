@@ -6,14 +6,14 @@
 {
 
 "temperature": {
-	"interval": 30,
+	"interval": 300,
 	"tooltip": true,
 	"hwmon-path": [
 		"/sys/class/hwmon/hwmon1/temp1_input",
 		"/sys/class/thermal/thermal_zone0/temp"
 	],
 	//"thermal-zone": 0,
-	"critical-threshold": 82,
+	"critical-threshold": 40,
 	"format-critical": "{temperatureC}°C {icon}",
 	"format": "{temperatureC}°C {icon}",
 	"format-icons": [
@@ -23,7 +23,7 @@
 },
 
 "backlight": {
-	"interval": 30,
+	"interval": 300,
 	"align": 0,
 	"rotate": 0,
 	//"format": "{icon} {percent}%",
@@ -56,7 +56,7 @@
 },
 
 "battery": {
-	"interval": 30,
+	"interval": 300,
 	//"bat": "BAT1",
 	//"adapter": "ACAD",
 	"full-at": 100,
@@ -66,9 +66,9 @@
 		"warning": 40,
 		"critical": 15
 	},
-	"format": "{icon} {capacity}% | {time}",
-	"format-charging": " {capacity}% | {time}",
-	"format-plugged": "󱘖 {capacity}% | {time}",
+	"format": "{icon} {capacity}% ┇ {time}",
+	"format-charging": " {capacity}% ┇ {time}",
+	"format-plugged": "󱘖 {capacity}% ┇ {time}",
 	"format-full": "{icon} Full",
 	"format-alt": "{icon} {time}",
 	"format-icons": [
@@ -161,7 +161,7 @@
 },
 
 "disk": {
-	"interval": 30,
+	"interval":30,
 	//"format": "󰋊",
 	"path": "/",
 	//"format-alt-click": "click",
@@ -222,7 +222,7 @@
 },
 
 "memory": {
-	"interval": 10,
+	"interval": 30,
 	"format": "{used:0.1f}G 󰾆",
 	"format-alt": "{percentage}% 󰾆",
 	"format-alt-click": "click",
@@ -232,7 +232,7 @@
 },
 
 "mpris": {
-	"interval": 10,
+	"interval": 30,
 	"format": "{player_icon} ",
 	"format-paused": "{status_icon} <i>{dynamic}</i>",
 	"on-click-middle": "playerctl play-pause",
@@ -283,8 +283,8 @@
 "network#speed": {
 	"interval": 5,
 	"format": "{ifname}",
-	"format-wifi": "{icon}  {bandwidthUpBytes}  {bandwidthDownBytes}",
-	"format-ethernet": "󰌘  {bandwidthUpBytes}  {bandwidthDownBytes}",
+	"format-wifi": "{icon}   {bandwidthDownBytes}  {bandwidthUpBytes}" ,
+	"format-ethernet": "󰌘    {bandwidthDownBytes}  {bandwidthUpBytes} ",
 	"format-disconnected": "󰌙",
 	"tooltip-format": "{ipaddr}",
 	"format-linked": "󰈁 {ifname} (No IP)",
@@ -387,7 +387,7 @@
 },
 
 "wlr/taskbar": {
-	"format": "{icon} {name}",
+	"format": "{icon}",
 	"icon-size": 16,
 	"all-outputs": false,
 	"tooltip-format": "{title}",
@@ -400,5 +400,14 @@
     "kitty-dropterm"
 		],
 },
+
+
+  "hyprland/tasks": {
+      "format": "{icon}",
+      "tooltip-format": "{title}",
+      "on-click": "activate",
+      "all-outputs": true,
+      "show-special": false
+  },
 }
 

@@ -1,0 +1,23 @@
+[Default Applications]
+x-scheme-handler/http=io.gitlab.librewolf-community.desktop
+text/html=io.gitlab.librewolf-community.desktop
+application/xhtml+xml=io.gitlab.librewolf-community.desktop
+x-scheme-handler/https=io.gitlab.librewolf-community.desktop
+x-scheme-handler/beeper=beepertexts.desktop
+inode/directory=thunar.desktop
+application/x-wayland-gnome-saved-search=thunar.desktop
+image/png=org.gnome.Loupe.desktop
+x-scheme-handler/about=io.gitlab.librewolf-community.desktop
+x-scheme-handler/unknown=io.gitlab.librewolf-community.desktop
+x-scheme-handler/mailto=thorium-browser.desktop
+
+[Added Associations]
+x-scheme-handler/http=io.gitlab.librewolf-community.desktop;
+text/html=io.gitlab.librewolf-community.desktop;
+application/xhtml+xml=io.gitlab.librewolf-community.desktop;
+x-scheme-handler/https=io.gitlab.librewolf-community.desktop;
+image/png=org.gnome.Loupe.desktop;
+text/plain=org.gnome.TextEditor.desktop;
+application/pdf=org.gimp.GIMP.desktop;
+image/jpeg=org.gnome.Loupe.desktop;
+text/x-python3=com.vscodium.codium.desktop;

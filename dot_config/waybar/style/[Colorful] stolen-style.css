@@ -371,4 +371,14 @@ window#waybar.empty #window {
   text-shadow: 0 0 4px #fff;
 }
 
+#custom-timer {
+    padding: 0 12px; /* Adjust 12px to your preference */
+}
 
+#custom-timer.active {
+    color: #e06c75; /* A nice bright red */
+}
+
+#custom-timer.idle {
+    color: #6c7086; /* Muted color when no timer is running */
+}
