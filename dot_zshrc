@@ -2,6 +2,14 @@
 # Created by newuser for 5.9
 eval "$(starship init zsh)"
 
+# fzf
+source <(fzf --zsh)
+
+# the fuck cli,  correct the previous command
+eval $(thefuck --alias)
+
+# chezmoi- git init connfig file
+export PATH="$HOME/.local/bin:$PATH"
 
 # BEGIN_KITTY_SHELL_INTEGRATION
 if test -e "/usr/lib64/kitty/shell-integration/zsh/kitty.zsh"; then
@@ -24,13 +32,16 @@ export VISUAL=nvim
 # mount proton_drive via rclone
 alias mount_proton='rclone mount proton_drive: ~/Proton_Drive --config=/home/soul/.config/rclone/rclone.conf --vfs-cache-mode writes --vfs-cache-max-age 1h --vfs-cache-poll-interval 1m --no-modtime --no-checksum --cache-dir=/var/rclone'
 
+# neovim
+alias vim='nvim'
+
 # rmtrash alisas
 alias rm='rmtrash'
 alias rmdir='rmdirtrash'
 
-alias f='fuck'
+alias fk='fuck'
 
-alias cm='chezmoi'
+alias cz='chezmoi'
 
 # ranger
 alias rg='ranger'
@@ -38,7 +49,17 @@ alias rg='ranger'
 # copy content to clipboard
 alias copyfile='xclip -selection clipboard <'
 
+# eza: a better ls alternative
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 
+# zoxide: better cd
+eval "$(zoxide init zsh --cmd cd)"
+
+alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
+
+
+# open VS codlium
+alias code='flatpak run com.vscodium.codium'
 
 # Enable command history
 HISTSIZE=10000
@@ -57,17 +78,8 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 
-# autojump cli
-source /usr/share/autojump/autojump.bash
-
-
-# the fuck cli,  correct the previous command
-eval $(thefuck --alias)
-
 # key binding or mapping
 bindkey '^H' backward-kill-word
 
 
 
-# chezmoi- git init connfig files
-export PATH="$HOME/.local/bin:$PATH"
