@@ -36,8 +36,8 @@
 	"clock",
 	"custom/separator#dot-line",
 	"idle_inhibitor",
-  "custom/timer",
   "custom/separator#dot-line",
+  "custom/pomodoro",
 ], 
 
 "modules-right": [

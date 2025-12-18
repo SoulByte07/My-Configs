@@ -29,8 +29,14 @@ export VISUAL=nvim
 
 # Alias
 
+# yazi
+alias fs='yazi'
+
 # mount proton_drive via rclone
 alias mount_proton='rclone mount proton_drive: ~/Proton_Drive --config=/home/soul/.config/rclone/rclone.conf --vfs-cache-mode writes --vfs-cache-max-age 1h --vfs-cache-poll-interval 1m --no-modtime --no-checksum --cache-dir=/var/rclone'
+
+alias gdr='rclone mount Gdrive: ~/Gdrive --daemon'
+alias umgdr='fusermount -u ~/Gdrive'
 
 # neovim
 alias vim='nvim'
@@ -82,4 +88,5 @@ source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
 bindkey '^H' backward-kill-word
 
 
-
+# Path
+export PATH="$HOME/98_Misc/Dev/flutter/bin:$PATH"

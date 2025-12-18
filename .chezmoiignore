@@ -1,0 +1,107 @@
+# ===================================================================
+# .chezmoiignore
+# -------------------------------------------------------------------
+# This file tells chezmoi what to ignore, just like a .gitignore.
+# Patterns are matched against paths in your HOME directory.
+# Add any file or folder you DON'T want to track in Git.
+# ===================================================================
+
+
+# ---
+# 1. General Cache & Logs
+# ---
+# Ignore all directories named 'cache' or 'Cache', no matter where they are.
+**/[Cc]ache/
+**/cache/
+
+# Ignore any file that ends with .cache
+**/*.cache
+
+# Ignore log files
+**/*.log
+**/*.log.*
+**/logs/
+
+# Ignore temp files
+**/*.tmp
+**/*~
+
+
+# ---
+# 2. Application State & History (Not Configuration)
+# ---
+# These files are not configs, but store session state, history, or user data.
+
+# Neovim / Vim (You only want to track your 'init.lua' or 'vimrc', not state)
+.config/nvim/undo/      # Undo history
+.config/nvim/shada/     # Shared data (session info, command history)
+.config/nvim/backup/    # Backup files
+.config/nvim/site/      # Often used for downloaded plugins (e.g., Packer/Lazy)
+.viminfo                # Older Vim state file
+
+# Shell history
+.bash_history
+.zsh_history
+.config/zsh_history
+.config/fish/fish_history
+
+# Desktop environment state
+.config/dconf/          # GNOME settings database (binary)
+.config/pulse/          # PulseAudio state
+.config/systemd/user/   # User service state
+.config/xephem/         # GNOME weather state
+
+
+# ---
+# 3. Browsers & Electron Apps (These are HUGE and are NOT configs)
+# ---
+# It's always best to ignore these completely.
+.config/google-chrome/
+.config/chromium/
+.config/BraveSoftware/
+.config/mozilla/        # Also check ~/.mozilla for Firefox profiles
+.config/Vivaldi/
+
+# Electron Apps
+.config/Code/           # VS Code (stores state, cache, extensions)
+.config/discord/
+.config/Slack/
+.config/spotify/
+.config/signal/
+.config/vlc/
+.config/obs-studio/
+
+
+# ---
+# 4. Language & Package Manager Caches
+# ---
+# Python
+**/__pycache__/
+.config/pip/
+
+# Node.js
+**/node_modules/
+.config/npm/
+.config/pnpm/
+
+# Go
+.config/go/             # Go build cache
+
+
+# ---
+# 5. CRITICAL: Secrets, Keys, and Credentials
+# ---
+# NEVER commit these to a public Git repository.
+.config/aws/
+.config/gcloud/
+.config/azure/
+.config/doppler/
+.config/1Password/
+.config/Bitwarden/
+
+.config/gh/             # GitHub CLI auth tokens
+.config/kube/           # Kubernetes config can contain tokens
+.config/docker/         # Docker config can contain auth tokens
+
+.gnupg/                 # GPG keys (backup these separately and securely)
+.ssh/                   # SSH keys (backup these separately and securely)

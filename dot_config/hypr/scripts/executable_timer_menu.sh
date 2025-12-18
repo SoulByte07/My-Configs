@@ -2,11 +2,12 @@
 
 TIMER_SCRIPT="$HOME/.config/hypr/scripts/timer.sh"
 
-# Wofi menu options
+# Rofi menu options
 entries="5 Minutes\n15 Minutes\n25 Minutes (Pomodoro)\n45 Minutes\nStop Timer"
 
-# Show wofi menu and get selected option
-selected=$(echo -e "$entries" | wofi --dmenu --prompt "Set Timer:")
+# Show rofi menu and get selected option
+# We replace 'wofi --dmenu --prompt' with 'rofi -dmenu -p'
+selected=$(echo -e "$entries" | rofi -dmenu -p "Set Timer:")
 
 # Execute action based on selection
 case "$selected" in

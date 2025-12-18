@@ -118,14 +118,27 @@ shotarea() {
 	notify_view
 }
 
-shotactive() {
-    active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
-    active_window_file="Screenshot_${time}_${active_window_class}.png"
-    active_window_path="${dir}/${active_window_file}"
+#shotactive() {
+#    active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
+#    active_window_file="Screenshot_${time}_${active_window_class}.png"
+#    active_window_path="${dir}/${active_window_file}"
+#
+#    hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - "${active_window_path}"
+#	sleep 1
+#    notify_view "active"
+#}
 
-    hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - "${active_window_path}"
+# add the saved screenshot to the clipboard
+shotactive() {
+    active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
+    active_window_file="Screenshot_${time}_${active_window_class}.png"
+    active_window_path="${dir}/${active_window_file}"
+
+    # CHANGED LINE:
+    # Added a '-' to grim to output to stdout, then piped to tee (to save) and wl-copy (to copy)
+    hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - - | tee "${active_window_path}" | wl-copy
 	sleep 1
-    notify_view "active"
+    notify_view "active"
 }
 
 shotswappy() {

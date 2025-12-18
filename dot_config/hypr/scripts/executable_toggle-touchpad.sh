@@ -1,38 +1,23 @@
-#!/usr/bin/env bash
-#
-# toggle-touchpad.sh (DEBUG VERSION)
-#
+#!/bin/bash
 
-TOUCHPAD="elan06fa:00-04f3:32b9-touchpad"
+# Find the device name for your touchpad
+# This searches for a device with "touchpad" in its name.
+DEVICE_NAME=$(hyprctl devices | grep -i "touchpad" | grep "Device:" | awk '{$1=""; print $0}' | sed 's/ (.*//;s/^ *//')
 
-# Debug: Show current devices
-echo "=== CURRENT DEVICES ==="
-hyprctl devices
-
-# Count external mice 
-MOUSE_COUNT=0
-while IFS= read -r line; do
-    if [[ $line == "Mouse at"* ]]; then
-        read -r name_line
-        echo "Found device: $name_line"
-        if [[ $name_line != *touchpad* ]]; then
-            ((MOUSE_COUNT++))
-            echo "  -> External mouse detected"
-        fi
-    fi
-done < <(hyprctl devices)
-
-echo "=== MOUSE COUNT: $MOUSE_COUNT ==="
-
-# Try the correct syntax for newer Hyprland
-if (( MOUSE_COUNT > 0 )); then
-    echo "Disabling touchpad..."
-    hyprctl keyword "device[$TOUCHPAD]:enabled" false
-else
-    echo "Enabling touchpad..."  
-    hyprctl keyword "device[$TOUCHPAD]:enabled" true
+# Check if a touchpad device was found
+if [ -z "$DEVICE_NAME" ]; then
+    notify-send -u critical "Touchpad Toggle Failed" "No touchpad device found."
+    exit 1
 fi
 
-echo "=== RESULT ==="
-hyprctl devices | grep -A2 "$TOUCHPAD"
+# Get the current state (1 for enabled, 0 for disabled)
+CURRENT_STATE=$(hyprctl getoption "device:$DEVICE_NAME:enabled" | grep "int:" | awk '{print $2}')
 
+# Toggle the state
+if [ "$CURRENT_STATE" == "1" ]; then
+    hyprctl keyword "device:$DEVICE_NAME:enabled" false
+    notify-send "Touchpad Disabled" "$DEVICE_NAME"
+else
+    hyprctl keyword "device:$DEVICE_NAME:enabled" true
+    notify-send "Touchpad Enabled" "$DEVICE_NAME"
+fi

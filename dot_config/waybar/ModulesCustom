@@ -283,13 +283,13 @@
   "escape": false
 },
 
-"custom/timer": {
-    "format": "{}",
-    "return-type": "json",
-    "interval": 60,
-    "exec": "~/.config/hypr/scripts/timer.sh",
-    "on-click-right": "~/.config/hypr/scripts/timer_menu.sh"
-}
+"custom/pomodoro": {
+	"format": "{}",
+	"return-type": "json",
+	"exec": "waybar-module-pomodoro",
+	"on-click": "waybar-module-pomodoro toggle",
+	"on-click-right": "waybar-module-pomodoro reset",
+},
 }
 
 
