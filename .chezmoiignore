@@ -105,3 +105,4 @@
 
 .gnupg/                 # GPG keys (backup these separately and securely)
 .ssh/                   # SSH keys (backup these separately and securely)
+.config/nvim/.git
