@@ -35,8 +35,14 @@ alias fs='yazi'
 # mount proton_drive via rclone
 alias mount_proton='rclone mount proton_drive: ~/Proton_Drive --config=/home/soul/.config/rclone/rclone.conf --vfs-cache-mode writes --vfs-cache-max-age 1h --vfs-cache-poll-interval 1m --no-modtime --no-checksum --cache-dir=/var/rclone'
 
-alias gdr='rclone mount Gdrive: ~/Gdrive --daemon'
-alias umgdr='fusermount -u ~/Gdrive'
+alias gd='rclone mount GoogleDrive: ~/GoogleDrive --daemon'
+alias ugd='fusermount -u ~/GoogleDrive'
+
+alias egd='rclone mount EncryptGoogleDrive: ~/EncryptGoogleDrive --daemon'
+alias uegd='fusermount -u ~/EncryptGoogleDrive'
+
+
+
 
 # neovim
 alias vim='nvim'

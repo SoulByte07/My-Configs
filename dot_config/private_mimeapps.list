@@ -23,3 +23,4 @@ image/jpeg=org.gnome.Loupe.desktop;
 text/x-python3=com.vscodium.codium.desktop;
 application/x-tiled-tsx=org.gnome.TextEditor.desktop;
 application/xml=net.thunderbird.Thunderbird.desktop;
+application/x-shellscript=nvim.desktop;
