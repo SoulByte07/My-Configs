@@ -32,14 +32,19 @@ export VISUAL=nvim
 # yazi
 alias fs='yazi'
 
-# mount proton_drive via rclone
-alias mount_proton='rclone mount proton_drive: ~/Proton_Drive --config=/home/soul/.config/rclone/rclone.conf --vfs-cache-mode writes --vfs-cache-max-age 1h --vfs-cache-poll-interval 1m --no-modtime --no-checksum --cache-dir=/var/rclone'
+#mount GoogleDrive
+# This starts the systemd service manually
+alias mgd='systemctl --user start rclone-mount-googledrive && echo "✅ Google Drive Mounted"'
 
-alias gd='rclone mount GoogleDrive: ~/GoogleDrive --daemon'
-alias ugd='fusermount -u ~/GoogleDrive'
+# Optional: If you want to unmount manually before shutdown
+alias ugd='systemctl --user stop rclone-mount-googledrive && echo "🛑 Google Drive Unmounted"'
 
-alias egd='rclone mount EncryptGoogleDrive: ~/EncryptGoogleDrive --daemon'
-alias uegd='fusermount -u ~/EncryptGoogleDrive'
+# mount EncryptedGoogleDrive
+# This starts the systemd service manually
+alias megd='systemctl --user start rclone-mount-encryptgoogledrive && echo "✅ Encrypt Google Drive Mounted"'
+
+# Optional: If you want to unmount manually before shutdown
+alias uegd='systemctl --user stop rclone-mount-encryptgoogledrive && echo "🛑 Encrypt Google Drive Unmounted"'
 
 
 
