@@ -1,4 +1,4 @@
-
+# =================== tools =====================
 # Created by newuser for 5.9
 eval "$(starship init zsh)"
 
@@ -18,16 +18,8 @@ fi
 # END_KITTY_SHELL_INTEGRATION
 
 
-# default shell
-export SHELL=/usr/bin/zsh
 
-
-# default text editor
-export EDITOR=nvim
-export VISUAL=nvim
-
-
-# Alias
+# ==================================== Alias =======================================
 
 # yazi
 alias fs='yazi'
@@ -47,10 +39,8 @@ alias megd='systemctl --user start rclone-mount-encryptgoogledrive && echo "✅ 
 alias uegd='systemctl --user stop rclone-mount-encryptgoogledrive && echo "🛑 Encrypt Google Drive Unmounted"'
 
 
-
-
 # neovim
-alias vim='nvim'
+alias vm='nvim'
 
 # rmtrash alisas
 alias rm='rmtrash'
@@ -64,7 +54,7 @@ alias cz='chezmoi'
 alias rg='ranger'
 
 # copy content to clipboard
-alias copyfile='xclip -selection clipboard <'
+alias cf='xclip -selection clipboard <'
 
 # eza: a better ls alternative
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
@@ -74,10 +64,50 @@ eval "$(zoxide init zsh --cmd cd)"
 
 alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
 
-
 # open VS codlium
 alias code='flatpak run com.vscodium.codium'
 
+# gemini sand boxxing
+alias gem='distrobox enter gemini-lab --additional-flags "--env GEMINI_API_KEY=$(secret-tool lookup service gemini user me)" -- gemini'
+
+
+# ====================================== PATH =======================================
+
+
+#export PATH="$HOME/98_Misc/Dev/flutter/bin:$PATH"
+
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# default shell
+export SHELL=/usr/bin/zsh
+
+
+# default text editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+
+
+# gemini sand boxing paths
+# Essential for Fedora to find the image and bypass label blocks
+#export GEMINI_SANDBOX_IMAGE="us-docker.pkg.dev/gemini-code-dev/gemini-cli/sandbox:0.1.1"
+#export SANDBOX_FLAGS="--security-opt label=disable"
+# 1. Force image version to avoid 'manifest unknown' errors
+#export GEMINI_SANDBOX_IMAGE="us-docker.pkg.dev/gemini-code-dev/gemini-cli/sandbox:0.1.1"
+#
+## 2. Fix Fedora SELinux (Labeling) without creating duplicate mounts
+#export SANDBOX_FLAGS="--security-opt label=disable"
+#
+## 3. Use Podman and fix UID permissions for 'node' user inside container
+#export GEMINI_SANDBOX="podman"
+#export SANDBOX_SET_UID_GID=true
+
+
+
+# ================== zsh ======================
 # Enable command history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -98,6 +128,12 @@ source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # key binding or mapping
 bindkey '^H' backward-kill-word
 
+# make zsh faster by creating 1 cache per day
+autoload -Uz compinit
 
-# Path
-export PATH="$HOME/98_Misc/Dev/flutter/bin:$PATH"
+if [[ -n $HOME/.cache/zsh/zcompdump-$ZSH_VERSION(#qN.mh+24) ]]; then
+    compinit -d "$HOME/.cache/zsh/zcompdump-$ZSH_VERSION"
+else
+    compinit -C -d "$HOME/.cache/zsh/zcompdump-$ZSH_VERSION"
+fi
+
