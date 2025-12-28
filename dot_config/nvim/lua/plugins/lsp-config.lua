@@ -15,7 +15,14 @@ return {
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       -- 3. Define the list of servers to install
-      local lsp_servers = { "ts_ls", "html", "lua_ls" }
+      local lsp_servers = { "ts_ls", "html", "lua_ls",
+        -- Add for Cloud/DevOps
+        "pyright",  -- Python (DevOps scripts, AWS/GCP SDKs)
+        "yamlls",   -- YAML (Kubernetes, CloudFormation, Ansible)
+        "jsonls",   -- JSON (Terraform, CloudFormation, API responses)
+        "bashls",   -- Bash scripts (most DevOps work!)
+        "dockerls", -- Dockerfile
+      }
 
       -- 4. Setup mason-lspconfig
       -- This single setup call configures everything

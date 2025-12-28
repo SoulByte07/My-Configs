@@ -15,7 +15,11 @@ vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
 
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 vim.wo.number = true
+vim.wo.relativenumber = true
+
 
 -- Enable persistent undo
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath('data') .. '/undodir'
+vim.opt.spell = true
+vim.opt.spelllang = { 'en_us' }
