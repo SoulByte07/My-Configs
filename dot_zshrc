@@ -1,134 +1,172 @@
-# =================== tools =====================
-# Created by newuser for 5.9
-eval "$(starship init zsh)"
+# ~/.zshrc - Production Cloud Engineer Setup
+# Fedora + Kitty + Zsh + Powerlevel10k (P10k) + Direct Source
+# Optimized for speed, simplicity, and DevOps workflows
 
-# fzf
+# ============================================
+# INSTANT PROMPT (Powerlevel10k - MUST BE AT TOP)
+# ============================================
+# Enable instant prompt. Should stay close to the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ============================================
+# ZSH TOOLS & PROMPT INITIALIZATION
+# ============================================
+
+# Powerlevel10k: Instant prompt with async git status (50x faster than P9k)
+# To re-run configuration wizard: p10k configure
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# fzf: Fuzzy finder (keybindings: Ctrl+R, Ctrl+T, Alt+C)
 source <(fzf --zsh)
 
-# the fuck cli,  correct the previous command
+# thefuck: Correct previous command
 eval $(thefuck --alias)
+# zoxide: Smarter directory jumper (replaces cd)
+eval "$(zoxide init zsh --cmd cd)"
 
-# chezmoi- git init connfig file
-export PATH="$HOME/.local/bin:$PATH"
-
-# BEGIN_KITTY_SHELL_INTEGRATION
+# ============================================
+# KITTY SHELL INTEGRATION (Fedora system path)
+# ============================================
+# Enables: Cmd+Up/Down to jump between prompts
 if test -e "/usr/lib64/kitty/shell-integration/zsh/kitty.zsh"; then
     source "/usr/lib64/kitty/shell-integration/zsh/kitty.zsh"
 fi
-# END_KITTY_SHELL_INTEGRATION
 
+# ============================================
+# PATH & ENVIRONMENT VARIABLES
+# ============================================
 
-
-# ==================================== Alias =======================================
-
-# yazi
-alias fs='yazi'
-
-#mount GoogleDrive
-# This starts the systemd service manually
-alias mgd='systemctl --user start rclone-mount-googledrive && echo "✅ Google Drive Mounted"'
-
-# Optional: If you want to unmount manually before shutdown
-alias ugd='systemctl --user stop rclone-mount-googledrive && echo "🛑 Google Drive Unmounted"'
-
-# mount EncryptedGoogleDrive
-# This starts the systemd service manually
-alias megd='systemctl --user start rclone-mount-encryptgoogledrive && echo "✅ Encrypt Google Drive Mounted"'
-
-# Optional: If you want to unmount manually before shutdown
-alias uegd='systemctl --user stop rclone-mount-encryptgoogledrive && echo "🛑 Encrypt Google Drive Unmounted"'
-
-
-# neovim
-alias vm='nvim'
-
-# rmtrash alisas
-alias rm='rmtrash'
-alias rmdir='rmdirtrash'
-
-alias fk='fuck'
-
-alias cz='chezmoi'
-
-# ranger
-alias rg='ranger'
-
-# copy content to clipboard
-alias cf='xclip -selection clipboard <'
-
-# eza: a better ls alternative
-alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
-
-# zoxide: better cd
-eval "$(zoxide init zsh --cmd cd)"
-
-alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
-
-# open VS codlium
-alias code='flatpak run com.vscodium.codium'
-
-# gemini sand boxxing
-alias gem='distrobox enter gemini-lab --additional-flags "--env GEMINI_API_KEY=$(secret-tool lookup service gemini user me)" -- gemini'
-
-
-# ====================================== PATH =======================================
-
-
-#export PATH="$HOME/98_Misc/Dev/flutter/bin:$PATH"
-
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-# default shell
+export PATH="$HOME/.local/bin:$PATH"
 export SHELL=/usr/bin/zsh
-
-
-# default text editor
 export EDITOR=nvim
 export VISUAL=nvim
+export LANG=en_US.UTF-8
+
+# open arch wiki in vim
+export MANPAGER="nvim +Man!"
+export PAGER="nvim"
 
 
+# ============================================
+# ALIASES: POWER USER SETUP
+# ============================================
 
-# gemini sand boxing paths
-# Essential for Fedora to find the image and bypass label blocks
-#export GEMINI_SANDBOX_IMAGE="us-docker.pkg.dev/gemini-code-dev/gemini-cli/sandbox:0.1.1"
-#export SANDBOX_FLAGS="--security-opt label=disable"
-# 1. Force image version to avoid 'manifest unknown' errors
-#export GEMINI_SANDBOX_IMAGE="us-docker.pkg.dev/gemini-code-dev/gemini-cli/sandbox:0.1.1"
-#
-## 2. Fix Fedora SELinux (Labeling) without creating duplicate mounts
-#export SANDBOX_FLAGS="--security-opt label=disable"
-#
-## 3. Use Podman and fix UID permissions for 'node' user inside container
-#export GEMINI_SANDBOX="podman"
-#export SANDBOX_SET_UID_GID=true
+# --- File Managers & Editors ---
+alias fs='yazi'                    # Modern file manager (Rust-based)
+alias vm='nvim'                    # Professional editor
+
+# --- Safe Deletion (Recoverable) ---
+alias rm='rmtrash'                 # rm that moves to trash (recoverable!)
+alias rmdir='rmdirtrash'           # Safe rmdir
+
+# --- List Alternative: eza (better than ls) ---
+alias ls="eza --color=always --long --git --icons=always --no-filesize --no-time --no-user --no-permissions"
+alias ll="eza --color=always --long --git --icons=always"
+alias la="eza --color=always --all --icons=always"
+
+# --- Utilities ---
+alias fk='fuck'                    # Correct previous command
+alias cz='chezmoi'                 # Dotfiles management
+#alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
+# --- Clipboard ---
+alias cf='xclip -selection clipboard <'     # Copy file to clipboard
+alias cp-stdin='xclip -selection clipboard' # Copy stdin to clipboard
+
+# --- Google Drive Mounts ---
+alias mgd='systemctl --user start rclone-mount-googledrive && echo "✅ Google Drive Mounted"'
+alias ugd='systemctl --user stop rclone-mount-googledrive && echo "🛑 Google Drive Unmounted"'
+alias megd='systemctl --user start rclone-mount-encryptgoogledrive && echo "✅ Encrypted Google Drive Mounted"'
+alias uegd='systemctl --user stop rclone-mount-encryptgoogledrive && echo "🛑 Encrypted Google Drive Unmounted"'
+
+# --- VS Codium (Flatpak) ---
+alias code='flatpak run com.vscodium.codium'
+
+# --- FZF Integrations ---
+alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
+alias fcd='cd $(find . -type d 2>/dev/null | fzf)'
+
+# --- Distrobox Gemini ---
+alias gem='distrobox enter gemini-lab --additional-flags "--env GEMINI_API_KEY=$(secret-tool lookup service gemini user me)" -- gemini'
+
+# --- Navigation shortcuts ---
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 
+# flatpak setup
+alias fks='flatpak search'
+alias fki='flatpak install'
 
-# ================== zsh ======================
-# Enable command history
+# ============================================
+# ZSH HISTORY
+# ============================================
+
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
+# History options
+setopt APPEND_HISTORY              # Append to history, don't overwrite
+setopt SHARE_HISTORY               # Share history across sessions
+setopt HIST_IGNORE_DUPS            # Ignore duplicate commands
+setopt HIST_FIND_NO_DUPS           # Don't show duplicates in search
+setopt HIST_IGNORE_SPACE           # Ignore lines starting with space
+setopt HIST_IGNORE_ALL_DUPS        # Remove older duplicates
+setopt HIST_SAVE_NO_DUPS           # Don't save duplicate commands
+setopt INC_APPEND_HISTORY          # Add to history immediately
 
-# Prevent duplicate entries in history
-setopt HIST_IGNORE_DUPS  # Ignore duplicate commands
-setopt HIST_FIND_NO_DUPS  # Do not display duplicates when searching history
+# ============================================
+# ZSH PLUGINS & AUTOCOMPLETION (System Packages)
+# ============================================
 
+# Load from Fedora system packages (faster than external managers)
+# These are provided by: zsh-autosuggestions, zsh-syntax-highlighting packages
 
-#important functionality
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
+if [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  # Configure autosuggestions
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'  # Gray color for suggestions
+  ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
+fi
 
+if [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # Configuration for syntax highlighting
+  ZSH_HIGHLIGHT_STYLES[comment]='fg=8'
+fi
 
-# key binding or mapping
+# zsh-autocomplete (newer than zsh-completions)
+if [[ -f ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh ]]; then
+  source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
+fi
+
+# ============================================
+# KEY BINDINGS
+# ============================================
+
+# Delete word backward (your keybinding)
 bindkey '^H' backward-kill-word
 
-# make zsh faster by creating 1 cache per day
+# Emacs-style navigation
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^U' backward-kill-line
+bindkey '^K' kill-line
+
+# History search with arrow keys (prefix-based)
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+# ============================================
+# COMPLETION OPTIMIZATION (Daily Cache)
+# ============================================
+# Builds completion cache once daily, not on every startup
+# This is the key to fast completion initialization
+
 autoload -Uz compinit
 
 if [[ -n $HOME/.cache/zsh/zcompdump-$ZSH_VERSION(#qN.mh+24) ]]; then
@@ -136,4 +174,102 @@ if [[ -n $HOME/.cache/zsh/zcompdump-$ZSH_VERSION(#qN.mh+24) ]]; then
 else
     compinit -C -d "$HOME/.cache/zsh/zcompdump-$ZSH_VERSION"
 fi
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case-insensitive
+zstyle ':completion:*:cd:*' list-dirs-first true               # Directories first
+zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'        # Colored completions
+
+# ============================================
+# CUSTOM FUNCTIONS (DevOps-Focused)
+# ============================================
+
+# Kill process interactively with fzf
+fkill() {
+  if [[ -z "$1" ]]; then
+    local pid=$(ps aux | fzf | awk '{print $2}')
+    [[ -n "$pid" ]] && kill -9 "$pid" && echo "✅ Killed process $pid"
+  else
+    kill -9 "$1" && echo "✅ Killed process $1"
+  fi
+}
+
+# Git checkout branch with fzf + preview
+gcb() {
+  local branch=$(git branch -a | sed 's/^[[:space:]]*//g' | \
+    fzf --preview 'git log -1 --oneline {}' --preview-window=right:40%)
+  if [[ -n "$branch" ]]; then
+    git checkout "${branch#remotes/origin/}"
+    echo "✅ Switched to: $branch"
+  fi
+}
+
+# git add and commit
+gac() {
+  git add .
+  git commit -m "$*"
+}
+
+
+# FZF directory change with preview
+#fcd() {
+#  local dir=$(find . -type d 2>/dev/null | \
+#    fzf --preview 'ls -lh {} | head -20' --preview-window=right:40%)
+#  if [[ -n "$dir" ]]; then
+#    cd "$dir"
+#    echo "📁 Directory: $(pwd)"
+#  fi
+#}
+
+# Docker cleanup (useful for active development)
+docker-cleanup() {
+  echo "🐳 Cleaning up Docker..."
+  docker system prune -a --volumes -f
+  echo "✅ Docker cleaned up"
+}
+
+# Kubernetes pod logs with fzf
+kl-fzf() {
+  if ! command -v kubectl &> /dev/null; then
+    echo "kubectl not installed"
+    return 1
+  fi
+  local pod=$(kubectl get pods --all-namespaces -o name | \
+    fzf --preview 'kubectl logs {} --tail=50' --preview-window=right:50%)
+  if [[ -n "$pod" ]]; then
+    kubectl logs -f "$pod"
+  fi
+}
+
+# Search git history with fzf
+git-search() {
+  git log --oneline --all --graph | fzf --preview 'git show {1}' | awk '{print $1}'
+}
+
+# Quick git clone to projects directory
+gcl() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: gcl <repo-url>"
+    return 1
+  fi
+  local repo_name=$(basename "$1" .git)
+  git clone "$1" ~/projects/"$repo_name" 2>/dev/null && \
+  cd ~/projects/"$repo_name" && \
+  echo "✅ Cloned to: $(pwd)" || \
+  echo "❌ Clone failed"
+}
+
+# ============================================
+# POWERLEVEL10K CONFIGURATION
+# ============================================
+# To customize prompt, run: p10k configure
+# Configuration is saved to ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ============================================
+# END OF ZSH CONFIGURATION
+# ============================================
+
+# Load local machine-specific config (if exists)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 

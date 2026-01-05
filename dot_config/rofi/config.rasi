@@ -13,6 +13,17 @@
 * If you have edited a config, rename it with a unique name. During update, the contents of 
 * ~/.config/rofi/themes/ will be replaced. */
 
+
+
+/* ---- 💫 JaKooLit FZF Matching Enhancement 💫 ---- */
+configuration {
+    matching          : "fuzzy";
+    sorting-method    : "fzf";
+    sort              : true;
+    case-sensitive    : false;
+}
+
+
 /* ---- Global Configuration Fonts ---- */
 @import "~/.config/rofi/0-shared-fonts.rasi"
 
