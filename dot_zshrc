@@ -48,6 +48,14 @@ export LANG=en_US.UTF-8
 export MANPAGER="nvim +Man!"
 export PAGER="nvim"
 
+# gemini sandbox
+#export GEMINI_SANDBOX=true
+##export SANDBOX_MOUNTS="$PWD:$PWD:rw
+#export GEMINI_SANDBOX_PROVIDER=podman
+
+# cargo is used to install RUST apps
+export PATH="$HOME/.cargo/bin:$PATH"
+
 
 # ============================================
 # ALIASES: POWER USER SETUP
@@ -90,7 +98,7 @@ alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
 alias fcd='cd $(find . -type d 2>/dev/null | fzf)'
 
 # --- Distrobox Gemini ---
-alias gem='distrobox enter gemini-lab --additional-flags "--env GEMINI_API_KEY=$(secret-tool lookup service gemini user me)" -- gemini'
+#alias gem='distrobox enter gemini-lab --additional-flags "--env GEMINI_API_KEY=$(secret-tool lookup service gemini user me)" -- gemini'
 
 # --- Navigation shortcuts ---
 alias ...='cd ../..'
@@ -105,19 +113,31 @@ alias fki='flatpak install'
 # ZSH HISTORY
 # ============================================
 
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 HISTFILE=~/.zsh_history
 
 # History options
-setopt APPEND_HISTORY              # Append to history, don't overwrite
-setopt SHARE_HISTORY               # Share history across sessions
-setopt HIST_IGNORE_DUPS            # Ignore duplicate commands
-setopt HIST_FIND_NO_DUPS           # Don't show duplicates in search
-setopt HIST_IGNORE_SPACE           # Ignore lines starting with space
-setopt HIST_IGNORE_ALL_DUPS        # Remove older duplicates
-setopt HIST_SAVE_NO_DUPS           # Don't save duplicate commands
-setopt INC_APPEND_HISTORY          # Add to history immediately
+#setopt APPEND_HISTORY              # Append to history, don't overwrite
+#setopt SHARE_HISTORY               # Share history across sessions
+#setopt HIST_IGNORE_DUPS            # Ignore duplicate commands
+#setopt HIST_FIND_NO_DUPS           # Don't show duplicates in search
+#setopt HIST_IGNORE_SPACE           # Ignore lines starting with space
+#setopt HIST_IGNORE_ALL_DUPS        # Remove older duplicates
+#setopt HIST_SAVE_NO_DUPS           # Don't save duplicate commands
+#setopt INC_APPEND_HISTORY          # Add to history immediately
+
+
+setopt SHARE_HISTORY             # Share history between all sessions (includes INC_APPEND_HISTORY)
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries to history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+
 
 # ============================================
 # ZSH PLUGINS & AUTOCOMPLETION (System Packages)

@@ -37,7 +37,6 @@
 	"custom/separator#dot-line",
 	"idle_inhibitor",
   "custom/separator#dot-line",
-  "custom/pomodoro",
 ], 
 
 "modules-right": [
